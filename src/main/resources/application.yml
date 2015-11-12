@@ -1,0 +1,4 @@
+spring:
+  groovy:
+    template:
+      cache: false

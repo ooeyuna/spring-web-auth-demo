@@ -2,6 +2,10 @@
 
 spring-security的文档很坑,能找的资料绝大多数是JSP模板引擎(没有springMVC默认的模板取参限制),在模板引擎上花的时间最多,也是尝试了下groovy,确实很爽,比scala模板简单易懂一些.就易用性和参考资料上shiro完爆ss.唯一坚持用ss的理由主要在于它自带了csrf防御机制,可以省点心(实际也只是加个简单的拦截器而已).听说SS有个很蛋疼的设定,不同路径下登陆同一个账户(比如/user/login和/admin/login)会出现,详细见[这里](http://blog.csdn.net/liufeng520/article/details/40615925),而shiro没这个问题.
 
+-----
+
+其实SS4做的事情很简单,但是为了实现多个标准而生成的一大坨代码接口,并且想实现一个web应用的简单登陆和权限校验还是要自己做很多事,甚至是做很多魔法,简直是OOP战士的典范.而SS4学习曲线之所以陡,最大的原因还是这什么功能都草草简单带过的reference和那一大坨根本不知道该看哪个的javadoc,并且官方并没有提供有参考价值的example(spring-boot有个security-sample的demo,却太简单了完全没有参考价值).我在踩坑途中基本都是通过google+stackoverflow和RuntimeException堆栈爆破翻调用栈来解决问题的,文档没有任!何!帮!助!!
+
 ## 踩的坑
 
 1. spring-security傻逼地把变量放request attribute,而默认groovy模板不允许获取request的值,需要自己指定viewResolver的属性

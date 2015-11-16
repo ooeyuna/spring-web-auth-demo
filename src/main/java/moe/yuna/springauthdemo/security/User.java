@@ -22,8 +22,12 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "12345";
-//        return "827ccb0eea8a706c4c34a16891f84e7b";
+        //111111{salt}
+        return "b9de33ff3d30bb91b85021e7e7235d9a";
+    }
+
+    public String getSalt() {
+        return "salt";
     }
 
     @Override

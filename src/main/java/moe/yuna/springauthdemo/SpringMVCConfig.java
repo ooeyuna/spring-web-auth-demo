@@ -1,4 +1,4 @@
-package moe.yuna.springauthdemo.security;
+package moe.yuna.springauthdemo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

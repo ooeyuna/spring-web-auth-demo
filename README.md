@@ -12,16 +12,20 @@ spring-security的文档很坑,能找的资料绝大多数是JSP模板引擎(没
 6. spring-boot默认spring-security-core的版本为3.2.8,而这里指定spring-security-web的版本是4.0.3,因为配置顺序优先用了第一个配置,导致4.0.3无法运作,比较愚蠢的错误.如果要用spring-boot,最好检查一下pom的当前版本
 7. Optinal居然要先用@RequestParam注解,否则无法使用
 8. 虽然spring-boot里说可以自动使用freemarker等模板,但实际上依旧需要开发者在maven里显式地添加依赖,而这一点在文档里根本没写,最后是找到官方demo才知道的
+9. 默认`GrantedAuthority`的实现必须有`ROLE_`前缀,否则无法生效!
+10. 想要让controller的方法使用`@Secured`,方法必须是`public`!!!
+11. 按照之前的代码结构,controller和main入口放在同一个class里,出现了诡异的authBuilder抛错,错误为builder被错误地重复创建了,没查到原因,直接照着别人的demo把controller和main入口拆开就正常了,魔法一般.
+12.logout默认`POST`方法,必须校验CSRFToken
+13. 默认的未登录的用户角色为`ROLE_ANONYMOUS`
+14. csrf默认用httpSession来存,把容器的session指定给memcached等公有cache上即可
+15. 默认csrf不会拦截GET,TRACE,HEAD,OPTIONS这四个http method,可额外定义忽略规则指定不需要CSRF校验的请求
+16. `exceptionHandling()`错误处理的handing注册方法,未尝试,留坑.
+17. 想要用盐加密密码的话,如demo里需要自己new一个`DaoAuthenticationProvider`定义`SaltSource`(官方建议使用bcrypt来加密,看不懂算法,说是自动加盐不需要开发关心密码盐的问题)
 
 ## 未解决的坑
 
 1. idea突然无法断点debug,原因不明
-2. csrf的配置还不明了,考虑到可扩展应该要将token存在公有cache里,还要考虑到ajax请求和移动端
-3. 关于用户验证失败的错误处理还不明了,不过应该是注册实现几个handler的事情(但要考虑到可能会有返回403和跳转登陆页两种情况)
 4. RememberMe的机制不明,考虑到扩展性同csrf,需要实现一些handler,具体还没看
-5. @Secured对于角色检查的机制不明,cannotVisit方法没有正确地返回403拒绝
-6. 如何在controller里及模板引擎里获取到当前用户,还没细看
-7. MD5PasswordEncoder测试没通过,原因不明
-8. spring-boot的管理,系统参数,jmx之类的都还没看
-9. 如何实现多层RememberMe,以及实现服务器之间的通信(是否使用CAS那反人类的玩意儿)
-10. spring-boot似乎没有很好的asset-pipeline方案,如果前端使用less,coffee之类的,也不知道要怎么动态调试.
+7. spring-boot的管理,系统参数,jmx之类的都还没看
+8. 如何实现多层RememberMe,以及实现服务器之间的通信(是否使用CAS那反人类的玩意儿)
+9. spring-boot似乎没有很好的asset-pipeline方案,如果前端使用less,coffee之类的,也不知道要怎么动态调试.

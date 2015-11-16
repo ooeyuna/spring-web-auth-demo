@@ -12,11 +12,11 @@ html {
             }
             div {
                 label(for: "username", "Username")
-                input(type: "text", id: "username", name: "username")
+                input(type: "text", id: "username", name: "username", value: "rika")
             }
             div {
                 label(for: "password", "Password")
-                input(type: "text", id: "password", name: "password")
+                input(type: "text", id: "password", name: "password", value: "111111")
             }
             input(type: "hidden", name: _csrf.parameterName, value: _csrf.token)
             div {

@@ -19,7 +19,7 @@ spring-security的文档很坑,能找的资料绝大多数是JSP模板引擎(没
 9. 默认`GrantedAuthority`的实现必须有`ROLE_`前缀,否则无法生效!
 10. 想要让controller的方法使用`@Secured`,方法必须是`public`!!!
 11. 按照之前的代码结构,controller和main入口放在同一个class里,出现了诡异的authBuilder抛错,错误为builder被错误地重复创建了,没查到原因,直接照着别人的demo把controller和main入口拆开就正常了,魔法一般.
-12.logout默认`POST`方法,必须校验CSRFToken
+12. logout默认`POST`方法,必须校验CSRFToken
 13. 默认的未登录的用户角色为`ROLE_ANONYMOUS`
 14. csrf默认用httpSession来存,把容器的session指定给memcached等公有cache上即可
 15. 默认csrf不会拦截GET,TRACE,HEAD,OPTIONS这四个http method,可额外定义忽略规则指定不需要CSRF校验的请求

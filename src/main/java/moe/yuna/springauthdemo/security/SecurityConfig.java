@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -39,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        TokenBasedRememberMeServices tokenBasedRememberMeServices = new TokenBasedRememberMeServices("rikasanai", service);
+        tokenBasedRememberMeServices.setAlwaysRemember(true);
         http
                 .csrf()
                 .ignoringAntMatchers()
@@ -62,8 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .key("rikasanai")
+//                .tokenRepository(new InMemoryTokenRepositoryImpl())
+                .rememberMeServices(tokenBasedRememberMeServices)
                 .and()
                 .exceptionHandling()
+                .accessDeniedHandler(new AccessDeniedHandlerImpl())
         ;
     }
 

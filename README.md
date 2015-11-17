@@ -25,11 +25,10 @@ spring-security的文档很坑,能找的资料绝大多数是JSP模板引擎(没
 15. 默认csrf不会拦截GET,TRACE,HEAD,OPTIONS这四个http method,可额外定义忽略规则指定不需要CSRF校验的请求
 16. `exceptionHandling()`错误处理的handing注册方法,未尝试,留坑.
 17. 想要用盐加密密码的话,如demo里需要自己new一个`DaoAuthenticationProvider`定义`SaltSource`(官方建议使用bcrypt来加密,看不懂算法,说是自动加盐不需要开发关心密码盐的问题)
+18. RememberMe陨石坑,又是一个按照文档写无法使用的功能,原因在于默认的RememberMeService需要在表单里指定默认参数`remember-me=true`来开启cookie记录,或者自己实现RememberMeService(demo里用默认的RememberMeService并指定always remember即可生效)
 
 ## 未解决的坑
 
 1. idea突然无法断点debug,原因不明
-4. RememberMe的机制不明,考虑到扩展性同csrf,需要实现一些handler,具体还没看
-7. spring-boot的管理,系统参数,jmx之类的都还没看
-8. 如何实现多层RememberMe,以及实现服务器之间的通信(是否使用CAS那反人类的玩意儿)
-9. spring-boot似乎没有很好的asset-pipeline方案,如果前端使用less,coffee之类的,也不知道要怎么动态调试.
+2. spring-boot的管理,系统参数,jmx之类的都还没看
+3. spring-boot似乎没有很好的asset-pipeline方案,如果前端使用less,coffee之类的,也不知道要怎么动态调试.
